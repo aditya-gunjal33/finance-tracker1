@@ -1,0 +1,3 @@
+com\financetracker\SeleniumTest.class
+com\financetracker\service\TransactionServiceTest.class
+com\financetracker\controller\TransactionControllerTest.class

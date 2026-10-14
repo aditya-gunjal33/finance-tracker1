@@ -1,0 +1,124 @@
+pipeline {
+    agent any
+
+    environment {
+        // ── Configure in Jenkins → Manage Jenkins → Credentials ──────────────
+        // Add a "Username with password" credential with ID: dockerhub-credentials
+        // Username = your Docker Hub username, Password = Docker Hub access token
+        DOCKER_HUB_CREDS = credentials('dockerhub-credentials')
+        // Image name is built inside stages using DOCKER_HUB_CREDS_USR (injected by Jenkins)
+        IMAGE_TAG         = "${BUILD_NUMBER}"
+    }
+
+    tools {
+        maven 'Maven-3.9'    // Must match name in Jenkins → Global Tool Configuration
+        jdk   'JDK-17'       // Must match name in Jenkins → Global Tool Configuration
+    }
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                echo '📥 Checking out source code...'
+                checkout scm
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo '🔨 Compiling with Maven...'
+                sh 'mvn clean compile -B'
+            }
+        }
+
+        stage('Unit Tests') {
+            steps {
+                echo '🧪 Running JUnit tests...'
+                sh 'mvn test -B'
+            }
+            post {
+                always {
+                    junit 'target/surefire-reports/*.xml'
+                }
+            }
+        }
+
+        stage('Package') {
+            steps {
+                echo '📦 Packaging JAR...'
+                sh 'mvn package -DskipTests -B'
+                archiveArtifacts artifacts: 'target/finance-tracker-*.jar', fingerprint: true
+            }
+        }
+
+        stage('Docker Build') {
+            steps {
+                echo '🐳 Building Docker image...'
+                sh """
+                    docker build \
+                        -t ${DOCKER_HUB_CREDS_USR}/finance-tracker:${IMAGE_TAG} \
+                        -t ${DOCKER_HUB_CREDS_USR}/finance-tracker:latest \
+                        .
+                """
+            }
+        }
+
+        stage('Docker Push') {
+            steps {
+                echo '⬆️  Pushing image to Docker Hub...'
+                // Credentials are injected by Jenkins — no hardcoded passwords
+                sh """
+                    echo '${DOCKER_HUB_CREDS_PSW}' | docker login -u '${DOCKER_HUB_CREDS_USR}' --password-stdin
+                    docker push ${DOCKER_HUB_CREDS_USR}/finance-tracker:${IMAGE_TAG}
+                    docker push ${DOCKER_HUB_CREDS_USR}/finance-tracker:latest
+                    docker logout
+                """
+            }
+        }
+
+        stage('Deploy (Local)') {
+            steps {
+                echo '🚀 Deploying container...'
+                sh """
+                    docker stop finance-tracker || true
+                    docker rm   finance-tracker || true
+                    docker run -d \
+                        --name finance-tracker \
+                        -p 8080:8080 \
+                        --restart unless-stopped \
+                        ${DOCKER_HUB_CREDS_USR}/finance-tracker:latest
+                    echo 'Container started — http://localhost:8080'
+                """
+            }
+        }
+
+        stage('Selenium Tests') {
+            steps {
+                echo '🌐 Running Selenium end-to-end tests...'
+                // -Dsurefire.skip=true prevents JUnit from running again;
+                // only the Failsafe plugin runs SeleniumTest via mvn verify.
+                // Spring Boot test context starts its own embedded server on a random port
+                // (see @SpringBootTest(webEnvironment = RANDOM_PORT) in SeleniumTest.java)
+                sh 'mvn verify -Dsurefire.skip=true -B'
+            }
+            post {
+                always {
+                    junit allowEmptyResults: true,
+                          testResults: 'target/failsafe-reports/*.xml'
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo '✅ Pipeline completed successfully!'
+        }
+        failure {
+            echo '❌ Pipeline failed. Check the stage logs above.'
+        }
+        always {
+            echo "Build #${BUILD_NUMBER} finished with status: ${currentBuild.currentResult}"
+        }
+    }
+}

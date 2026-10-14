@@ -1,0 +1,5 @@
+com\financetracker\model\Transaction.class
+com\financetracker\repository\TransactionRepository.class
+com\financetracker\controller\TransactionController.class
+com\financetracker\FinanceTrackerApplication.class
+com\financetracker\service\TransactionService.class

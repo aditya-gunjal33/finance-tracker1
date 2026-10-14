@@ -1,0 +1,408 @@
+/* ============================================================
+   Finance Tracker — style.css
+   Clean, responsive, dark-accented design
+   ============================================================ */
+
+/* ── Google Fonts already loaded in <head> ── */
+
+/* ── CSS Custom Properties ─────────────────────────────────── */
+:root {
+    --bg:           #0f1117;
+    --surface:      #1a1d27;
+    --surface-2:    #222635;
+    --border:       #2e3347;
+    --text-primary: #e8eaf0;
+    --text-muted:   #8892a4;
+
+    --income-color:  #22c55e;
+    --income-bg:     #052e16;
+    --expense-color: #f43f5e;
+    --expense-bg:    #4c0519;
+    --balance-color: #818cf8;
+    --balance-bg:    #1e1b4b;
+
+    --accent:       #6366f1;
+    --accent-hover: #4f46e5;
+    --danger:       #ef4444;
+    --danger-hover: #dc2626;
+
+    --radius-sm:  6px;
+    --radius-md:  12px;
+    --radius-lg:  18px;
+    --shadow:     0 4px 24px rgba(0,0,0,0.45);
+    --transition: 0.2s ease;
+
+    --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* ── Reset / Base ───────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text-primary);
+    min-height: 100vh;
+    line-height: 1.6;
+    font-size: 15px;
+}
+
+/* ── Layout ─────────────────────────────────────────────────── */
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* ── Navbar ─────────────────────────────────────────────────── */
+.navbar {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(12px);
+}
+
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+}
+
+.nav-icon { font-size: 1.4rem; }
+
+.nav-meta {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-weight: 400;
+}
+
+/* ── Alert ──────────────────────────────────────────────────── */
+.alert {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.85rem 1.2rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-top: 1.2rem;
+    animation: slideDown 0.3s ease;
+}
+
+.alert-success {
+    background: rgba(34, 197, 94, 0.12);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    color: var(--income-color);
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Dashboard Cards ────────────────────────────────────────── */
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.2rem;
+    margin: 2rem 0;
+}
+
+.card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.6rem 1.8rem;
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    transition: transform var(--transition), box-shadow var(--transition);
+    box-shadow: var(--shadow);
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.55);
+}
+
+.card-icon {
+    font-size: 1.8rem;
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.card-income  .card-icon { background: var(--income-bg);  color: var(--income-color); }
+.card-expense .card-icon { background: var(--expense-bg); color: var(--expense-color); }
+.card-balance .card-icon { background: var(--balance-bg); color: var(--balance-color); }
+
+.card-income  { border-left: 4px solid var(--income-color); }
+.card-expense { border-left: 4px solid var(--expense-color); }
+.card-balance { border-left: 4px solid var(--balance-color); }
+
+.card-label {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+}
+
+.card-value {
+    font-size: 1.7rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+}
+
+.card-value.positive { color: var(--income-color); }
+.card-value.negative { color: var(--expense-color); }
+
+/* ── Section Titles ─────────────────────────────────────────── */
+.section-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-primary);
+}
+
+/* ── Form Section ───────────────────────────────────────────── */
+.form-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.8rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.form-group label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.form-group input,
+.form-group select {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    padding: 0.7rem 0.9rem;
+    font-size: 0.95rem;
+    font-family: var(--font);
+    transition: border-color var(--transition), box-shadow var(--transition);
+    outline: none;
+    width: 100%;
+}
+
+.form-group input::placeholder { color: var(--text-muted); }
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(99,102,241,0.18);
+}
+
+.form-group select option { background: var(--surface-2); }
+.form-group select optgroup { color: var(--text-muted); font-style: normal; }
+
+.field-error {
+    font-size: 0.78rem;
+    color: var(--expense-color);
+    font-weight: 500;
+}
+
+/* ── Buttons ─────────────────────────────────────────────────── */
+.btn-primary {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 0.75rem 2rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    font-family: var(--font);
+    cursor: pointer;
+    transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+    box-shadow: 0 2px 12px rgba(99,102,241,0.35);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.btn-primary:hover {
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(99,102,241,0.5);
+}
+
+.btn-primary:active { transform: scale(0.98); }
+
+.btn-delete {
+    background: transparent;
+    color: var(--expense-color);
+    border: 1px solid rgba(244,63,94,0.35);
+    border-radius: var(--radius-sm);
+    padding: 0.35rem 0.75rem;
+    font-size: 0.8rem;
+    font-family: var(--font);
+    cursor: pointer;
+    transition: background var(--transition), color var(--transition);
+    white-space: nowrap;
+}
+
+.btn-delete:hover {
+    background: rgba(244,63,94,0.12);
+    border-color: var(--expense-color);
+}
+
+/* ── History Section ─────────────────────────────────────────── */
+.history-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.8rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow);
+}
+
+.table-wrapper {
+    overflow-x: auto;
+    border-radius: var(--radius-md);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+thead th {
+    background: var(--surface-2);
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    font-weight: 600;
+    padding: 0.9rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+
+tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background var(--transition);
+}
+
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover { background: var(--surface-2); }
+
+tbody td {
+    padding: 0.85rem 1rem;
+    vertical-align: middle;
+    color: var(--text-primary);
+}
+
+/* Row accent lines */
+.row-income  td:first-child { border-left: 3px solid var(--income-color); }
+.row-expense td:first-child { border-left: 3px solid var(--expense-color); }
+
+/* Amounts */
+.amount-income  { color: var(--income-color);  font-weight: 700; }
+.amount-expense { color: var(--expense-color); font-weight: 700; }
+
+/* Type badges */
+.type-income,
+.type-expense {
+    display: inline-block;
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.type-income  { background: rgba(34,197,94,0.15);  color: var(--income-color); }
+.type-expense { background: rgba(244,63,94,0.15); color: var(--expense-color); }
+
+/* Category badge */
+.badge {
+    background: var(--surface-2);
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.2rem 0.65rem;
+    font-size: 0.76rem;
+    font-weight: 500;
+}
+
+/* ── Empty State ─────────────────────────────────────────────── */
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--text-muted);
+}
+
+.empty-icon { font-size: 3rem; margin-bottom: 0.8rem; }
+
+/* ── Footer ──────────────────────────────────────────────────── */
+.footer {
+    text-align: center;
+    padding: 1.5rem;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    border-top: 1px solid var(--border);
+    margin-top: 2rem;
+}
+
+/* ── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 640px) {
+    .navbar { padding: 1rem; }
+    .nav-meta { display: none; }
+    .card-value { font-size: 1.35rem; }
+    .form-section, .history-section { padding: 1.2rem; }
+    .btn-primary { width: 100%; justify-content: center; }
+}
+
+/* ── Scrollbar ───────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--surface); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }

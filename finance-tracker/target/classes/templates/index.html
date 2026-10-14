@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="Finance Tracker — track your income and expenses easily."/>
+    <title>Finance Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+
+<!-- ═══════════════════ NAV BAR ═══════════════════ -->
+<nav class="navbar">
+    <div class="nav-brand">
+        <span class="nav-icon">💰</span>
+        <span>Finance Tracker</span>
+    </div>
+    <div class="nav-meta">DevOps Practical · 2025</div>
+</nav>
+
+<!-- ═══════════════════ FLASH MESSAGE ═══════════════════ -->
+<div class="container">
+    <div th:if="${successMessage}" class="alert alert-success" id="flash-message">
+        <span>✓</span>
+        <span th:text="${successMessage}">Success!</span>
+    </div>
+</div>
+
+<!-- ═══════════════════ DASHBOARD CARDS ═══════════════════ -->
+<main class="container" id="main-content">
+    <section class="dashboard" aria-label="Financial Summary">
+        <div class="card card-income" id="card-income">
+            <div class="card-icon">↑</div>
+            <div class="card-body">
+                <p class="card-label">Total Income</p>
+                <p class="card-value" id="total-income"
+                   th:text="'₹ ' + ${#numbers.formatDecimal(totalIncome, 1, 'COMMA', 2, 'POINT')}">₹ 0.00</p>
+            </div>
+        </div>
+        <div class="card card-expense" id="card-expense">
+            <div class="card-icon">↓</div>
+            <div class="card-body">
+                <p class="card-label">Total Expenses</p>
+                <p class="card-value" id="total-expenses"
+                   th:text="'₹ ' + ${#numbers.formatDecimal(totalExpenses, 1, 'COMMA', 2, 'POINT')}">₹ 0.00</p>
+            </div>
+        </div>
+        <div class="card card-balance" id="card-balance">
+            <div class="card-icon">⚖</div>
+            <div class="card-body">
+                <p class="card-label">Balance</p>
+                <p class="card-value"
+                   th:classappend="${balance >= 0} ? 'positive' : 'negative'"
+                   id="balance"
+                   th:text="'₹ ' + ${#numbers.formatDecimal(balance, 1, 'COMMA', 2, 'POINT')}">₹ 0.00</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════ ADD TRANSACTION FORM ═══════════════════ -->
+    <section class="form-section" aria-label="Add Transaction">
+        <h2 class="section-title">Add Transaction</h2>
+
+        <form id="transaction-form"
+              th:action="@{/transactions}"
+              th:object="${transaction}"
+              method="post"
+              novalidate>
+
+            <div class="form-grid">
+
+                <!-- Title -->
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text"
+                           id="title"
+                           name="title"
+                           th:field="*{title}"
+                           placeholder="e.g. Monthly Salary"
+                           autocomplete="off"
+                           maxlength="100"/>
+                    <span class="field-error"
+                          th:if="${#fields.hasErrors('title')}"
+                          th:errors="*{title}">Title error</span>
+                </div>
+
+                <!-- Amount -->
+                <div class="form-group">
+                    <label for="amount">Amount (₹)</label>
+                    <input type="number"
+                           id="amount"
+                           name="amount"
+                           th:field="*{amount}"
+                           placeholder="0.00"
+                           step="0.01"
+                           min="0.01"/>
+                    <span class="field-error"
+                          th:if="${#fields.hasErrors('amount')}"
+                          th:errors="*{amount}">Amount error</span>
+                </div>
+
+                <!-- Type -->
+                <div class="form-group">
+                    <label for="type">Type</label>
+                    <select id="type" name="type" th:field="*{type}">
+                        <option value="">-- Select Type --</option>
+                        <option value="INCOME">Income</option>
+                        <option value="EXPENSE">Expense</option>
+                    </select>
+                    <span class="field-error"
+                          th:if="${#fields.hasErrors('type')}"
+                          th:errors="*{type}">Type error</span>
+                </div>
+
+                <!-- Category -->
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <select id="category" name="category" th:field="*{category}">
+                        <option value="">-- Select Category --</option>
+                        <optgroup label="Income">
+                            <option value="Salary">Salary</option>
+                            <option value="Freelance">Freelance</option>
+                            <option value="Investment">Investment</option>
+                            <option value="Gift">Gift</option>
+                            <option value="Other Income">Other Income</option>
+                        </optgroup>
+                        <optgroup label="Expenses">
+                            <option value="Food">Food</option>
+                            <option value="Transport">Transport</option>
+                            <option value="Utilities">Utilities</option>
+                            <option value="Education">Education</option>
+                            <option value="Healthcare">Healthcare</option>
+                            <option value="Entertainment">Entertainment</option>
+                            <option value="Shopping">Shopping</option>
+                            <option value="Rent">Rent</option>
+                            <option value="Other Expense">Other Expense</option>
+                        </optgroup>
+                    </select>
+                    <span class="field-error"
+                          th:if="${#fields.hasErrors('category')}"
+                          th:errors="*{category}">Category error</span>
+                </div>
+
+            </div>
+
+            <button type="submit" id="submit-btn" class="btn-primary">
+                <span>+ Add Transaction</span>
+            </button>
+        </form>
+    </section>
+
+    <!-- ═══════════════════ TRANSACTION HISTORY ═══════════════════ -->
+    <section class="history-section" aria-label="Transaction History">
+        <h2 class="section-title">Transaction History</h2>
+
+        <!-- Empty State -->
+        <div th:if="${#lists.isEmpty(transactions)}" class="empty-state" id="empty-state">
+            <div class="empty-icon">📋</div>
+            <p>No transactions yet. Add one above!</p>
+        </div>
+
+        <!-- Table -->
+        <div th:unless="${#lists.isEmpty(transactions)}" class="table-wrapper">
+            <table id="transaction-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Title</th>
+                        <th>Category</th>
+                        <th>Type</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="tx, stat : ${transactions}"
+                        th:classappend="${tx.type == 'INCOME'} ? 'row-income' : 'row-expense'">
+                        <td th:text="${stat.index + 1}">1</td>
+                        <td th:text="${tx.title}">Title</td>
+                        <td>
+                            <span class="badge" th:text="${tx.category}">Category</span>
+                        </td>
+                        <td>
+                            <span th:classappend="${tx.type == 'INCOME'} ? 'type-income' : 'type-expense'"
+                                  th:text="${tx.type}">TYPE</span>
+                        </td>
+                        <td th:classappend="${tx.type == 'INCOME'} ? 'amount-income' : 'amount-expense'"
+                            th:text="'₹ ' + ${#numbers.formatDecimal(tx.amount, 1, 'COMMA', 2, 'POINT')}">
+                            ₹ 0.00
+                        </td>
+                        <td th:text="${#temporals.format(tx.createdAt, 'dd MMM yyyy, HH:mm')}">Date</td>
+                        <td>
+                            <form th:action="@{/transactions/{id}/delete(id=${tx.id})}"
+                                  method="post"
+                                  onsubmit="return confirm('Delete this transaction?');">
+                                <button type="submit"
+                                        class="btn-delete"
+                                        th:attr="aria-label='Delete ' + ${tx.title}"
+                                        th:id="'delete-' + ${tx.id}">
+                                    🗑 Delete
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer class="footer">
+    <p>Finance Tracker &copy; 2025 · Built with Spring Boot &amp; Thymeleaf · DevOps Practical</p>
+</footer>
+
+<script th:src="@{/js/app.js}"></script>
+</body>
+</html>
