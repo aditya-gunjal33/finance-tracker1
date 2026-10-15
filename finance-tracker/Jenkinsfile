@@ -27,6 +27,13 @@ tools {
                 }
             }
         }
+        
+        stage('Check Java Version') {
+            steps {
+                 bat 'java --version'
+                 bat 'mvn --version'
+                 }
+              }
 
         stage('Unit Tests') {
             steps {
