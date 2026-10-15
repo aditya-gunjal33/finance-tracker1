@@ -66,6 +66,7 @@ tools {
             }
         }
 
+        ```groovy
         stage('Docker Push') {
             steps {
                 withCredentials([usernamePassword(
@@ -74,11 +75,20 @@ tools {
                     passwordVariable: 'DOCKER_TOKEN'
                 )]) {
                     bat '''
-                        docker login -u "%DOCKER_USER%" --password-stdin < NUL
+                        @echo off
+                        echo %DOCKER_TOKEN%| docker login -u "%DOCKER_USER%" --password-stdin
+                        if errorlevel 1 exit /b 1
+
+                        docker push %IMAGE_NAME%:%BUILD_NUMBER%
+                        if errorlevel 1 exit /b 1
+
+                        docker push %IMAGE_NAME%:latest
+                        if errorlevel 1 exit /b 1
                     '''
                 }
             }
         }
+```
     }
 
     post {
