@@ -1,13 +1,10 @@
-
 pipeline {
     agent any
 
-    
-tools {
-    maven 'Maven3'
-    jdk   'jdk21'
-}
-
+    tools {
+        maven 'Maven3'
+        jdk 'jdk21'
+    }
 
     environment {
         IMAGE_NAME = 'harshittare/finance-tracker'
@@ -20,6 +17,13 @@ tools {
             }
         }
 
+        stage('Check Java and Maven') {
+            steps {
+                bat 'java --version'
+                bat 'mvn --version'
+            }
+        }
+
         stage('Build') {
             steps {
                 dir('finance-tracker') {
@@ -27,13 +31,6 @@ tools {
                 }
             }
         }
-        
-        stage('Check Java Version') {
-            steps {
-                 bat 'java --version'
-                 bat 'mvn --version'
-                 }
-              }
 
         stage('Unit Tests') {
             steps {
@@ -54,9 +51,8 @@ tools {
                 dir('finance-tracker') {
                     bat 'mvn package -DskipTests -B'
                 }
-                archiveArtifacts artifacts:
-                    'finance-tracker/target/*.jar',
-                    fingerprint: true
+                archiveArtifacts artifacts: 'finance-tracker/target/*.jar',
+                                 fingerprint: true
             }
         }
 
@@ -66,7 +62,6 @@ tools {
             }
         }
 
-        ```groovy
         stage('Docker Push') {
             steps {
                 withCredentials([usernamePassword(
@@ -74,6 +69,7 @@ tools {
                     usernameVariable: 'DOCKER_USER',
                     passwordVariable: 'DOCKER_TOKEN'
                 )]) {
+                    
                     bat '''
                         @echo off
                         echo %DOCKER_TOKEN%| docker login -u "%DOCKER_USER%" --password-stdin
@@ -88,7 +84,6 @@ tools {
                 }
             }
         }
-```
     }
 
     post {
