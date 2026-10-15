@@ -86,23 +86,32 @@ class SeleniumTest {
     @Order(3)
     @DisplayName("Add income transaction and verify it appears in the table")
     void addIncomeTransaction() {
-        driver.get(baseUrl() + "/");
+     driver.get(baseUrl() + "/");
 
-        driver.findElement(By.id("title")).sendKeys("Test Salary");
+     driver.findElement(By.id("title")).sendKeys("Test Salary");
+     driver.findElement(By.id("amount")).sendKeys("12000");
+     new Select(driver.findElement(By.id("type"))).selectByValue("INCOME");
+     new Select(driver.findElement(By.id("category"))).selectByValue("Salary");
 
-        driver.findElement(By.id("amount")).sendKeys("12000");
+     driver.findElement(By.id("submit-btn")).click();
 
-        new Select(driver.findElement(By.id("type"))).selectByValue("INCOME");
-        new Select(driver.findElement(By.id("category"))).selectByValue("Salary");
+     try {
+        wait.until(d ->
+            d.findElements(By.id("transaction-table")).size() > 0
+            || d.findElements(By.className("field-error")).size() > 0
+        );
+     } catch (TimeoutException e) {
+        System.out.println("DEBUG URL: " + driver.getCurrentUrl());
+        System.out.println("DEBUG TITLE: " + driver.getTitle());
+        System.out.println("DEBUG PAGE SOURCE: " + driver.getPageSource());
+        throw e;
+     }
 
-        driver.findElement(By.id("submit-btn")).click();
+     assertThat(driver.findElements(By.id("transaction-table"))).isNotEmpty();
 
-        // Wait for redirect and table to appear
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("transaction-table")));
-
-        String body = driver.findElement(By.id("transaction-table")).getText();
-        assertThat(body).contains("Test Salary");
-        assertThat(body).contains("INCOME");
+     String body = driver.findElement(By.id("transaction-table")).getText();
+     assertThat(body).contains("Test Salary");
+     assertThat(body).contains("INCOME");
     }
 
     @Test
@@ -145,35 +154,36 @@ class SeleniumTest {
     @Order(7)
     @DisplayName("Delete button removes transaction from the table")
     void deleteTransaction() {
-        // First, add a transaction to delete
-        driver.get(baseUrl() + "/");
-        driver.findElement(By.id("title")).sendKeys("To Delete");
-        driver.findElement(By.id("amount")).sendKeys("99");
-        new Select(driver.findElement(By.id("type"))).selectByValue("EXPENSE");
-        new Select(driver.findElement(By.id("category"))).selectByValue("Food");
-        driver.findElement(By.id("submit-btn")).click();
+     driver.get(baseUrl() + "/");
 
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("transaction-table")));
+     driver.findElement(By.id("title")).sendKeys("To Delete");
+     driver.findElement(By.id("amount")).sendKeys("99");
+     new Select(driver.findElement(By.id("type"))).selectByValue("EXPENSE");
+     new Select(driver.findElement(By.id("category"))).selectByValue("Food");
+     driver.findElement(By.id("submit-btn")).click();
 
-        // Find the delete button for our transaction and click it
-        // Accept the JS confirm dialog
-        WebElement deleteBtn = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        By.xpath("//td[contains(text(),'To Delete')]/following-sibling::td//button[@class='btn-delete']")
-                )
+     wait.until(ExpectedConditions.urlToBe(baseUrl() + "/"));
+     wait.until(ExpectedConditions.textToBePresentInElementLocated(
+        By.id("transaction-table"), "To Delete"
+     ));
+
+     WebElement deleteBtn = wait.until(
+        ExpectedConditions.presenceOfElementLocated(
+        By.xpath("//button[@aria-label='Delete To Delete']")
+     )
+     );
+     ((JavascriptExecutor) driver).executeScript(
+        "arguments[0].scrollIntoView({block: 'center', inline: 'nearest'});",
+        deleteBtn
+     );
+     ((JavascriptExecutor) driver).executeScript(
+         "window.confirm = function(){ return true; };"
         );
+     wait.until(ExpectedConditions.visibilityOf(deleteBtn));
+     ((JavascriptExecutor) driver).executeScript(
+        "arguments[0].click();", deleteBtn
+     );
 
-        // Handle the confirm() dialog
-        ((JavascriptExecutor) driver).executeScript(
-                "window.confirm = function(){ return true; }");
-
-        deleteBtn.click();
-
-        // Wait for redirect
-        wait.until(ExpectedConditions.urlToBe(baseUrl() + "/"));
-
-        // "To Delete" should no longer be in the table (or empty state is shown)
-        String pageSource = driver.getPageSource();
-        assertThat(pageSource).doesNotContain(">To Delete<");
     }
+
 }

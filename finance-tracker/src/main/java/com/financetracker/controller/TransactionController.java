@@ -21,6 +21,10 @@ public class TransactionController {
         this.service = service;
     }
 
+    @ModelAttribute("transaction")
+    public Transaction createTransaction() {
+     return new Transaction();
+    }
     // ── Dashboard ─────────────────────────────────────────────────
 
     @GetMapping("/")
@@ -42,13 +46,14 @@ public class TransactionController {
                                  RedirectAttributes redirectAttrs) {
 
         if (result.hasErrors()) {
-            // Re-render the page with validation errors
-            model.addAttribute("transactions", service.findAll());
-            model.addAttribute("totalIncome",   service.totalIncome());
-            model.addAttribute("totalExpenses", service.totalExpenses());
-            model.addAttribute("balance",       service.balance());
-            return "index";
-        }
+    // Re-render the page with validation errors
+    model.addAttribute("transactions", service.findAll());
+    model.addAttribute("totalIncome", service.totalIncome());
+    model.addAttribute("totalExpenses", service.totalExpenses());
+    model.addAttribute("balance", service.balance());
+    model.addAttribute("transaction", transaction);
+    return "index";
+}
 
         // Normalise type to uppercase
         transaction.setType(transaction.getType().toUpperCase());

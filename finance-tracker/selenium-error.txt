@@ -1,0 +1,163 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -----------------< com.financetracker:finance-tracker >-----------------
+[INFO] Building Finance Tracker 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ finance-tracker ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 3 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ finance-tracker ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ finance-tracker ---
+[INFO] skip non existing resourceDirectory C:\Projects\finance-tracker1\finance-tracker\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ finance-tracker ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ finance-tracker ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.financetracker.controller.TransactionControllerTest
+20:07:40.665 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.financetracker.controller.TransactionControllerTest]: TransactionControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+20:07:41.285 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.financetracker.FinanceTrackerApplication for test class com.financetracker.controller.TransactionControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.5)
+
+2026-10-15T20:07:43.262+05:30  INFO 25884 --- [Finance Tracker] [           main] c.f.c.TransactionControllerTest          : Starting TransactionControllerTest using Java 21.0.12.1 with PID 25884 (started by DELL in C:\Projects\finance-tracker1\finance-tracker)
+2026-10-15T20:07:43.266+05:30  INFO 25884 --- [Finance Tracker] [           main] c.f.c.TransactionControllerTest          : No active profile set, falling back to 1 default profile: "default"
+WARNING: A Java agent has been loaded dynamically (C:\Users\DELL\.m2\repository\net\bytebuddy\byte-buddy-agent\1.14.13\byte-buddy-agent-1.14.13.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+2026-10-15T20:07:51.301+05:30  INFO 25884 --- [Finance Tracker] [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2026-10-15T20:07:53.464+05:30  INFO 25884 --- [Finance Tracker] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-10-15T20:07:53.466+05:30  INFO 25884 --- [Finance Tracker] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-10-15T20:07:53.476+05:30  INFO 25884 --- [Finance Tracker] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 4 ms
+2026-10-15T20:07:53.596+05:30  INFO 25884 --- [Finance Tracker] [           main] c.f.c.TransactionControllerTest          : Started TransactionControllerTest in 11.982 seconds (process running for 17.098)
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 17.72 s -- in com.financetracker.controller.TransactionControllerTest
+[INFO] Running com.financetracker.service.TransactionServiceTest
+2026-10-15T20:07:57.581+05:30  INFO 25884 --- [Finance Tracker] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.financetracker.service.TransactionServiceTest]: TransactionServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-15T20:07:57.818+05:30  INFO 25884 --- [Finance Tracker] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.financetracker.FinanceTrackerApplication for test class com.financetracker.service.TransactionServiceTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.5)
+
+2026-10-15T20:07:58.064+05:30  INFO 25884 --- [Finance Tracker] [           main] c.f.service.TransactionServiceTest       : Starting TransactionServiceTest using Java 21.0.12.1 with PID 25884 (started by DELL in C:\Projects\finance-tracker1\finance-tracker)
+2026-10-15T20:07:58.066+05:30  INFO 25884 --- [Finance Tracker] [           main] c.f.service.TransactionServiceTest       : No active profile set, falling back to 1 default profile: "default"
+2026-10-15T20:07:59.679+05:30  INFO 25884 --- [Finance Tracker] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-10-15T20:07:59.895+05:30  INFO 25884 --- [Finance Tracker] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 171 ms. Found 1 JPA repository interface.
+2026-10-15T20:08:01.256+05:30  INFO 25884 --- [Finance Tracker] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-10-15T20:08:01.639+05:30  INFO 25884 --- [Finance Tracker] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-10-15T20:08:01.813+05:30  INFO 25884 --- [Finance Tracker] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-10-15T20:08:02.350+05:30  INFO 25884 --- [Finance Tracker] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-10-15T20:08:02.472+05:30  INFO 25884 --- [Finance Tracker] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-10-15T20:08:03.256+05:30  INFO 25884 --- [Finance Tracker] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:financedb user=SA
+2026-10-15T20:08:03.262+05:30  INFO 25884 --- [Finance Tracker] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-10-15T20:08:06.483+05:30  INFO 25884 --- [Finance Tracker] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-10-15T20:08:06.626+05:30  INFO 25884 --- [Finance Tracker] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-10-15T20:08:08.267+05:30  WARN 25884 --- [Finance Tracker] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-10-15T20:08:08.308+05:30  INFO 25884 --- [Finance Tracker] [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2026-10-15T20:08:08.985+05:30  INFO 25884 --- [Finance Tracker] [           main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:financedb'
+2026-10-15T20:08:09.170+05:30  INFO 25884 --- [Finance Tracker] [           main] c.f.service.TransactionServiceTest       : Started TransactionServiceTest in 11.311 seconds (process running for 32.672)
+[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 14.51 s -- in com.financetracker.service.TransactionServiceTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 15, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- jar:3.3.0:jar (default-jar) @ finance-tracker ---
+[INFO] Building jar: C:\Projects\finance-tracker1\finance-tracker\target\finance-tracker-1.0.0.jar
+[INFO] 
+[INFO] --- spring-boot:3.2.5:repackage (repackage) @ finance-tracker ---
+[INFO] Replacing main artifact C:\Projects\finance-tracker1\finance-tracker\target\finance-tracker-1.0.0.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+[INFO] The original artifact has been renamed to C:\Projects\finance-tracker1\finance-tracker\target\finance-tracker-1.0.0.jar.original
+[INFO] 
+[INFO] --- failsafe:3.1.2:integration-test (default) @ finance-tracker ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.financetracker.SeleniumTest
+20:08:22.395 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.financetracker.SeleniumTest]: SeleniumTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+20:08:22.836 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.financetracker.FinanceTrackerApplication for test class com.financetracker.SeleniumTest
+20:08:25.029 [main] INFO io.github.bonigarcia.wdm.WebDriverManager -- Using chromedriver 155.0.8059.79 (resolved driver for Chrome 155)
+20:08:25.148 [main] INFO io.github.bonigarcia.wdm.WebDriverManager -- Exporting webdriver.chrome.driver as C:\Users\DELL\.cache\selenium\chromedriver\win64\155.0.8059.79\chromedriver.exe
+Oct 15, 2026 8:08:28 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 155
+Oct 15, 2026 8:08:28 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 155.0.8059.40. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.18.1` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.5)
+
+2026-10-15T20:08:29.991+05:30  INFO 12032 --- [Finance Tracker] [           main] com.financetracker.SeleniumTest          : Starting SeleniumTest using Java 21.0.12.1 with PID 12032 (started by DELL in C:\Projects\finance-tracker1\finance-tracker)
+2026-10-15T20:08:29.998+05:30  INFO 12032 --- [Finance Tracker] [           main] com.financetracker.SeleniumTest          : No active profile set, falling back to 1 default profile: "default"
+2026-10-15T20:08:33.245+05:30  INFO 12032 --- [Finance Tracker] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-10-15T20:08:33.491+05:30  INFO 12032 --- [Finance Tracker] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 202 ms. Found 1 JPA repository interface.
+2026-10-15T20:08:35.807+05:30  INFO 12032 --- [Finance Tracker] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 0 (http)
+2026-10-15T20:08:35.859+05:30  INFO 12032 --- [Finance Tracker] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-15T20:08:35.861+05:30  INFO 12032 --- [Finance Tracker] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.20]
+2026-10-15T20:08:36.307+05:30  INFO 12032 --- [Finance Tracker] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-10-15T20:08:36.309+05:30  INFO 12032 --- [Finance Tracker] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 6212 ms
+2026-10-15T20:08:36.442+05:30  INFO 12032 --- [Finance Tracker] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-10-15T20:08:37.301+05:30  INFO 12032 --- [Finance Tracker] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:financedb user=SA
+2026-10-15T20:08:37.308+05:30  INFO 12032 --- [Finance Tracker] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-10-15T20:08:37.358+05:30  INFO 12032 --- [Finance Tracker] [           main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:financedb'
+2026-10-15T20:08:37.900+05:30  INFO 12032 --- [Finance Tracker] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-10-15T20:08:38.258+05:30  INFO 12032 --- [Finance Tracker] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-10-15T20:08:38.435+05:30  INFO 12032 --- [Finance Tracker] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-10-15T20:08:39.962+05:30  INFO 12032 --- [Finance Tracker] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-10-15T20:08:45.002+05:30  INFO 12032 --- [Finance Tracker] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-10-15T20:08:45.156+05:30  INFO 12032 --- [Finance Tracker] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-10-15T20:08:46.990+05:30  WARN 12032 --- [Finance Tracker] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-10-15T20:08:47.120+05:30  INFO 12032 --- [Finance Tracker] [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2026-10-15T20:08:49.524+05:30  INFO 12032 --- [Finance Tracker] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 54264 (http) with context path ''
+2026-10-15T20:08:49.574+05:30  INFO 12032 --- [Finance Tracker] [           main] com.financetracker.SeleniumTest          : Started SeleniumTest in 20.783 seconds (process running for 30.652)
+WARNING: A Java agent has been loaded dynamically (C:\Users\DELL\.m2\repository\net\bytebuddy\byte-buddy-agent\1.14.13\byte-buddy-agent-1.14.13.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+2026-10-15T20:08:52.110+05:30  INFO 12032 --- [Finance Tracker] [o-auto-1-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-15T20:08:52.111+05:30  INFO 12032 --- [Finance Tracker] [o-auto-1-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-10-15T20:08:52.115+05:30  INFO 12032 --- [Finance Tracker] [o-auto-1-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 36.78 s -- in com.financetracker.SeleniumTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- failsafe:3.1.2:verify (default) @ finance-tracker ---
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  01:34 min
+[INFO] Finished at: 2026-10-15T20:08:59+05:30
+[INFO] ------------------------------------------------------------------------
